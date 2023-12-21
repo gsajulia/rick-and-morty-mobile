@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Text, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@apollo/client";
@@ -7,10 +7,21 @@ import { GET_CHARACTERS } from "../../services/getCharacters";
 import * as Styled from "./StyledCharactersList";
 import { TNavigation } from "../../globalTypes";
 import { TCharacter } from "../../globalTypes";
+import { CharactersContext } from "../../context/CharacterContext";
 
 const CharactersList = () => {
     const navigation = useNavigation<TNavigation>();
     const { loading, error, data } = useQuery(GET_CHARACTERS, { client });
+    const { dispatch } = useContext(CharactersContext)!;
+
+    useEffect(() => {
+        if (data) {
+            dispatch({
+                type: "SET_CHARACTERS",
+                payload: data.characters.results,
+            });
+        }
+    }, [data]);
 
     if (loading) return <Text>Carregando...</Text>;
     if (error) return <Text>Error :(</Text>;

@@ -10,6 +10,7 @@ import {
     TransitionPresets,
 } from "@react-navigation/stack";
 import { RootStackParamList } from "./globalTypes";
+import { CharactersProvider } from "./context/CharacterContext";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -28,29 +29,31 @@ const App: React.FC = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <NavigationContainer>
-                <Stack.Navigator
-                    initialRouteName="CharactersList"
-                    screenOptions={screenOptions}
-                >
-                    <Stack.Screen
-                        name="CharactersList"
-                        component={CharactersList}
-                        options={{
-                            title: "Rick and Morty Characters",
-                            headerShown: true,
-                        }}
-                    />
-                    <Stack.Screen
-                        name="CharacterDetails"
-                        component={CharacterDetails}
-                        options={{
-                            title: "Character Details",
-                            headerShown: true,
-                        }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <CharactersProvider>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        initialRouteName="CharactersList"
+                        screenOptions={screenOptions}
+                    >
+                        <Stack.Screen
+                            name="CharactersList"
+                            component={CharactersList}
+                            options={{
+                                title: "Rick and Morty Characters",
+                                headerShown: true,
+                            }}
+                        />
+                        <Stack.Screen
+                            name="CharacterDetails"
+                            component={CharacterDetails}
+                            options={{
+                                title: "Character Details",
+                                headerShown: true,
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </CharactersProvider>
         </ThemeProvider>
     );
 };

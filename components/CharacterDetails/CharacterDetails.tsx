@@ -1,47 +1,41 @@
-import React from "react";
-import { Text, View } from "react-native";
-import { useQuery } from "@apollo/client";
-import client from "../../apolloClient";
-import { GET_CHARACTER_DETAILS } from "../../services/getCharacterDetail";
+import React, { useContext } from "react";
 import * as Styled from "./StyledCharacterDetails";
 import { TCharacterDetails } from "./CharacterDetailsTypes";
+import { CharactersContext } from "../../context/CharacterContext";
+import { TCharacter } from "../../globalTypes";
 
 const CharacterDetails: React.FC<TCharacterDetails> = ({ route }) => {
     const { characterId } = route.params;
-    const { loading, error, data } = useQuery(GET_CHARACTER_DETAILS, {
-        variables: { id: characterId },
-        client,
-    });
+    const { state } = useContext(CharactersContext)!;
 
-    if (loading) return <Text>Carregando...</Text>;
-    if (error) return <Text>Error :(</Text>;
-
-    const character = data.character;
+    const character = state.characters.find(
+        (character: TCharacter) => character.id === characterId
+    );
 
     return (
         <Styled.Container>
-            <Styled.CharacterImage source={{ uri: character.image }} />
-            <Styled.Name>{character.name}</Styled.Name>
+            <Styled.CharacterImage source={{ uri: character?.image }} />
+            <Styled.Name>{character?.name}</Styled.Name>
             <Styled.CharacterDetail>
-                Status: {character.status}
+                Status: {character?.status}
             </Styled.CharacterDetail>
             <Styled.CharacterDetail>
-                Espécie: {character.species}
+                Espécie: {character?.species}
             </Styled.CharacterDetail>
             <Styled.CharacterDetail>
-                Tipo: {character.type}
+                Tipo: {character?.type}
             </Styled.CharacterDetail>
             <Styled.CharacterDetail>
-                Gênero: {character.gender}
+                Gênero: {character?.gender}
             </Styled.CharacterDetail>
             <Styled.CharacterDetail>
-                Criado em: {character.created}
+                Criado em: {character?.created}
             </Styled.CharacterDetail>
             <Styled.CharacterDetail>
-                Localização: {character.location.name}
+                Localização: {character?.location.name}
             </Styled.CharacterDetail>
             <Styled.CharacterDetail>
-                Origem: {character.origin.name}
+                Origem: {character?.origin.name}
             </Styled.CharacterDetail>
         </Styled.Container>
     );

@@ -6,7 +6,25 @@ export const GET_CHARACTERS = gql`
             results {
                 id
                 name
+                status
+                species
+                type
+                gender
                 image
+                created
+                location {
+                    id
+                    name
+                }
+                origin {
+                    id
+                    name
+                }
+                episode {
+                    id
+                    name
+                    air_date
+                }
             }
         }
     }
