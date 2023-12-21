@@ -1,43 +1,23 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-
-const client = new ApolloClient({
-    uri: "https://rickandmortyapi.com/graphql",
-    cache: new InMemoryCache(),
-});
-
-const GET_CHARACTERS = gql`
-    query GetCharacters {
-        characters {
-            results {
-                id
-                name
-            }
-        }
-    }
-`;
+import { View, Text } from "react-native";
+import CharactersList from "./components/CharactersList/CharactersList";
+import { ThemeProvider } from "styled-components";
+import theme from "./globalTheme";
 
 export default function App() {
-    React.useEffect(() => {
-        client
-            .query({ query: GET_CHARACTERS })
-            .then((response) => console.log(response.data))
-            .catch((error) => console.error(error));
-    }, []);
-
     return (
-        <View style={styles.container}>
-            <Text>Consultando a API do Rick and Morty...</Text>
-        </View>
+        <ThemeProvider theme={theme}>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "scroll",
+                    backgroundColor: "#050A2E",
+                }}
+            >
+                <CharactersList />
+            </View>
+        </ThemeProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-});
