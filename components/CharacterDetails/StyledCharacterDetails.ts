@@ -7,11 +7,17 @@ export const Container = styled.View`
     background-color: ${(props) => props.theme.colors.background};
 `;
 
+export const Details = styled.View`
+    flex: 1;
+    align-self: center;
+    padding-top: 20px;
+`;
+
 export const Name = styled.Text`
     font-size: 24px;
     font-weight: bold;
-    color: ${(props) => props.theme.colors.lightText};
-    margin-bottom: 10px;
+    color: ${(props) => props.theme.colors.secondary};
+    margin-bottom: 20px;
 `;
 
 export const CharacterImage = styled(Image)`
@@ -21,6 +27,19 @@ export const CharacterImage = styled(Image)`
     margin-bottom: 20px;
 `;
 
-export const CharacterDetail = styled.Text`
+export const CharacterDetails = styled.View`
+    margin-bottom: 10px;
+`;
+
+export const DetailLabel = styled.Text`
+    font-size: 16px;
+    font-weight: bold;
+    color: ${(props) => props.theme.colors.primary};
+    margin-bottom: 5px;
+`;
+
+export const DetailValue = styled.Text`
+    font-size: 16px;
     color: ${(props) => props.theme.colors.lightText};
+    margin-bottom: 10px;
 `;

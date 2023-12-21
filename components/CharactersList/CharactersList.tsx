@@ -23,7 +23,7 @@ const CharactersList = () => {
         }
     }, [data]);
 
-    if (loading) return <Text>Carregando...</Text>;
+    if (loading) return <Text>Loading...</Text>;
     if (error) return <Text>Error :(</Text>;
 
     const handleCharacterSelect = (character: TCharacter) => {

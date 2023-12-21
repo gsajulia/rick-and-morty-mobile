@@ -12,31 +12,63 @@ const CharacterDetails: React.FC<TCharacterDetails> = ({ route }) => {
         (character: TCharacter) => character.id === characterId
     );
 
+    const formatDate = (dateString: string | undefined) => {
+        if (!dateString) {
+            return "";
+        }
+
+        const options: Intl.DateTimeFormatOptions = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        };
+        return new Date(dateString).toLocaleDateString("en-US", options);
+    };
+
     return (
         <Styled.Container>
-            <Styled.CharacterImage source={{ uri: character?.image }} />
-            <Styled.Name>{character?.name}</Styled.Name>
-            <Styled.CharacterDetail>
-                Status: {character?.status}
-            </Styled.CharacterDetail>
-            <Styled.CharacterDetail>
-                Espécie: {character?.species}
-            </Styled.CharacterDetail>
-            <Styled.CharacterDetail>
-                Tipo: {character?.type}
-            </Styled.CharacterDetail>
-            <Styled.CharacterDetail>
-                Gênero: {character?.gender}
-            </Styled.CharacterDetail>
-            <Styled.CharacterDetail>
-                Criado em: {character?.created}
-            </Styled.CharacterDetail>
-            <Styled.CharacterDetail>
-                Localização: {character?.location.name}
-            </Styled.CharacterDetail>
-            <Styled.CharacterDetail>
-                Origem: {character?.origin.name}
-            </Styled.CharacterDetail>
+            <Styled.Details>
+                <Styled.CharacterImage source={{ uri: character?.image }} />
+                <Styled.Name>{character?.name}</Styled.Name>
+
+                <Styled.CharacterDetails>
+                    <Styled.DetailLabel>Status</Styled.DetailLabel>
+                    <Styled.DetailValue>{character?.status}</Styled.DetailValue>
+                </Styled.CharacterDetails>
+
+                <Styled.CharacterDetails>
+                    <Styled.DetailLabel>Species</Styled.DetailLabel>
+                    <Styled.DetailValue>
+                        {character?.species}
+                    </Styled.DetailValue>
+                </Styled.CharacterDetails>
+
+                <Styled.CharacterDetails>
+                    <Styled.DetailLabel>Gender</Styled.DetailLabel>
+                    <Styled.DetailValue>{character?.gender}</Styled.DetailValue>
+                </Styled.CharacterDetails>
+
+                <Styled.CharacterDetails>
+                    <Styled.DetailLabel>Created at</Styled.DetailLabel>
+                    <Styled.DetailValue>
+                        {character?.created && formatDate(character?.created)}
+                    </Styled.DetailValue>
+                </Styled.CharacterDetails>
+
+                <Styled.CharacterDetails>
+                    <Styled.DetailLabel>Location</Styled.DetailLabel>
+                    <Styled.DetailValue>
+                        {character?.location.name}
+                    </Styled.DetailValue>
+                </Styled.CharacterDetails>
+
+                <Styled.CharacterDetails>
+                    <Styled.DetailLabel>Origen</Styled.DetailLabel>
+                    <Styled.DetailValue>
+                        {character?.origin.name}
+                    </Styled.DetailValue>
+                </Styled.CharacterDetails>
+            </Styled.Details>
         </Styled.Container>
     );
 };
