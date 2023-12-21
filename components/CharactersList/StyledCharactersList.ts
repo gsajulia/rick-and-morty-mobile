@@ -11,7 +11,7 @@ export const ListContainer = styled.View`
     justify-content: center;
     align-items: center;
     overflow: scroll;
-    background: ${(props) => props.theme.colors.deepBlack};
+    background: ${(props) => props.theme.colors.background};
 `;
 
 export const Item = styled.Text`
