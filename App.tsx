@@ -1,23 +1,50 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import CharactersList from "./components/CharactersList/CharactersList";
+import CharacterDetails from "./components/CharacterDetails/CharacterDetails";
 import { ThemeProvider } from "styled-components";
 import theme from "./globalTheme";
+import { RootStackParamList } from "./globalTypes";
 
-export default function App() {
+const Stack = createStackNavigator<RootStackParamList>();
+
+const App: React.FC = () => {
+    const screenOptions = {
+        headerStyle: {
+            backgroundColor: theme.colors.deepBlack,
+        },
+        headerTintColor: theme.colors.lightText,
+        headerTitleStyle: {
+            fontWeight: "bold" as const,
+        },
+    };
+
     return (
         <ThemeProvider theme={theme}>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    overflow: "scroll",
-                    backgroundColor: "#050A2E",
-                }}
-            >
-                <CharactersList />
-            </View>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName="CharactersList"
+                    screenOptions={screenOptions}
+                >
+                    <Stack.Screen
+                        name="CharactersList"
+                        component={CharactersList}
+                        options={{
+                            title: "Rick and Morty Characters",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="CharacterDetails"
+                        component={CharacterDetails}
+                        options={{
+                            title: "Character Details",
+                        }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
         </ThemeProvider>
     );
-}
+};
+
+export default App;

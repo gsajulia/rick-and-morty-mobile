@@ -6,17 +6,17 @@ export const Container = styled.View`
     padding-top: 22px;
 `;
 
+export const ListContainer = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+    background: ${(props) => props.theme.colors.deepBlack};
+`;
+
 export const Item = styled.Text`
     padding: 10px;
     font-size: 18px;
-`;
-
-export const Header = styled.Text`
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: ${(props) => props.theme.colors.lightText};
 `;
 
 export const Card = styled(TouchableOpacity).attrs({
